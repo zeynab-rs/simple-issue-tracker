@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import issue_tracker.model.Issue;
 import issue_tracker.service.IssueService;
@@ -29,18 +31,42 @@ public class IssueController {
     }
 
     @PostMapping("/api/issues")
-    public Issue createIssue(@RequestBody Issue issue) {
-        return issueService.createIssue(issue);
+    public ResponseEntity<Issue> createIssue(@RequestBody Issue issue) {
+        Issue newIssue = issueService.createIssue(issue);
+
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(newIssue);
     }
 
     @GetMapping("/api/issues/{id}")
-    public Issue issue(@PathVariable Integer id) {
-        return issueService.findById(id);
+    public ResponseEntity<Issue> issue(@PathVariable Integer id) {
+        Issue issue = issueService.findById(id);
+
+        if (issue != null) {
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(issue);
+        } else {
+            return ResponseEntity
+                .notFound()
+                .build();
+        }    
     }
 
     @PutMapping("/api/issues/{id}")
-    public Issue editIssue(@RequestBody Issue issue, @PathVariable Integer id) {
-        return issueService.editIssue(issue, id);
+    public ResponseEntity<Issue> editIssue(@RequestBody Issue issue, @PathVariable Integer id) {
+        Issue newIssue = issueService.editIssue(issue, id);
+        
+        if (newIssue != null) {
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(newIssue);
+        } else {
+            return ResponseEntity
+                .notFound()
+                .build();
+        }
     }
 
     @DeleteMapping("/api/issues/{id}")
