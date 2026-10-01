@@ -1,17 +1,21 @@
 package issue_tracker.model;
 
 public class Issue {
-    private int id;
+    private Integer id;
     private String title;
     private String description;
     private IssueStatus status;
     private IssuePriority priority;
 
-    public Issue(int id) {
+    public Issue() {
+
+    }
+
+    public Issue(Integer id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
