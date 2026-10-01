@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import issue_tracker.model.Issue;
 import issue_tracker.service.IssueService;
@@ -21,12 +23,22 @@ public class IssueController {
     }
 
     @GetMapping("/api/issues")
-    public List<Issue> issue() {
+    public List<Issue> issues() {
         return issueService.getAllIssues();
     }
 
     @PostMapping("/api/issues")
     public Issue createIssue(@RequestBody Issue issue) {
         return issueService.createIssue(issue);
+    }
+
+    @GetMapping("/api/issues/{id}")
+    public Issue issue(@PathVariable Integer id) {
+        return issueService.findById(id);
+    }
+
+    @PutMapping("/api/issues/{id}")
+    public Issue editIssue(@RequestBody Issue issue, @PathVariable Integer id) {
+        return issueService.editIssue(issue, id);
     }
 }
