@@ -70,7 +70,17 @@ public class IssueController {
     }
 
     @DeleteMapping("/api/issues/{id}")
-    public Issue deleteIssue(@PathVariable Integer id) {
-        return issueService.deleteIssue(id);
+    public ResponseEntity<Void> deleteIssue(@PathVariable Integer id) {
+        Issue issue = issueService.deleteIssue(id);
+
+        if (issue != null) {
+            return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+        } else {
+            return ResponseEntity
+                .notFound()
+                .build();
+        }
     }
 }
