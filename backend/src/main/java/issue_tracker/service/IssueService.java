@@ -48,4 +48,15 @@ public class IssueService {
             return null;
         }
     }
+
+    public Issue deleteIssue(Integer id) {
+        Issue issue = this.findById(id);
+
+        if (issue != null) {
+            this.issues.remove(issue);
+            return issue;
+        } else {
+            return null;
+        }
+    }
 }
