@@ -19,7 +19,7 @@ import issue_tracker.service.IssueService;
 @RestController
 public class IssueController {
 
-    private IssueService issueService;
+    private final IssueService issueService;
 
     public IssueController(IssueService issueService) {
         this.issueService = issueService;
@@ -56,12 +56,12 @@ public class IssueController {
 
     @PutMapping("/api/issues/{id}")
     public ResponseEntity<Issue> editIssue(@RequestBody Issue issue, @PathVariable Integer id) {
-        Issue newIssue = issueService.editIssue(issue, id);
+        Issue updatedIssue = issueService.editIssue(issue, id);
         
-        if (newIssue != null) {
+        if (updatedIssue != null) {
             return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(newIssue);
+                .body(updatedIssue);
         } else {
             return ResponseEntity
                 .notFound()
