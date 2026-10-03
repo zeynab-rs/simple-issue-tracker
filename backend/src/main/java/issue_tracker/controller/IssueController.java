@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import issue_tracker.model.Issue;
 import issue_tracker.service.IssueService;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class IssueController {
 
@@ -31,7 +33,7 @@ public class IssueController {
     }
 
     @PostMapping("/api/issues")
-    public ResponseEntity<Issue> createIssue(@RequestBody Issue issue) {
+    public ResponseEntity<Issue> createIssue(@RequestBody @Valid Issue issue) {
         Issue newIssue = issueService.createIssue(issue);
 
         return ResponseEntity
@@ -55,7 +57,7 @@ public class IssueController {
     }
 
     @PutMapping("/api/issues/{id}")
-    public ResponseEntity<Issue> editIssue(@RequestBody Issue issue, @PathVariable Integer id) {
+    public ResponseEntity<Issue> editIssue(@RequestBody @Valid Issue issue, @PathVariable Integer id) {
         Issue updatedIssue = issueService.editIssue(issue, id);
         
         if (updatedIssue != null) {

@@ -7,17 +7,23 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 @Entity
 public class Issue {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
+    @NotBlank(message = "Title must not be blank")
+    @Size(min=3, message = "Title must be at least 3 characters")
     private String title;
+    @NotBlank(message = "Description must not be blank")
     private String description;
     @Enumerated(EnumType.STRING)
-    private IssueStatus status;
+    private IssueStatus status = IssueStatus.TODO;
     @Enumerated(EnumType.STRING)
-    private IssuePriority priority;
+    private IssuePriority priority = IssuePriority.LOW;
 
     public Issue() {
 
