@@ -8,6 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -21,8 +22,10 @@ public class Issue {
     @NotBlank(message = "Description must not be blank")
     private String description;
     @Enumerated(EnumType.STRING)
+    @NotNull
     private IssueStatus status = IssueStatus.TODO;
     @Enumerated(EnumType.STRING)
+    @NotNull
     private IssuePriority priority = IssuePriority.LOW;
 
     public Issue() {
