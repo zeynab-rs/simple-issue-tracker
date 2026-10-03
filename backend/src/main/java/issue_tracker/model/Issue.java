@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 
 @Entity
 public class Issue {
@@ -12,15 +14,13 @@ public class Issue {
     private Integer id;
     private String title;
     private String description;
+    @Enumerated(EnumType.STRING)
     private IssueStatus status;
+    @Enumerated(EnumType.STRING)
     private IssuePriority priority;
 
     public Issue() {
 
-    }
-
-    public Issue(Integer id) {
-        this.id = id;
     }
 
     public Integer getId() {
