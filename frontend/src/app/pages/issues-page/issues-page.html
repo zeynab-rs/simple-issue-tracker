@@ -1,13 +1,15 @@
+<app-create-issue (issueCreated)="onIssueCreated($event)" />
+
 <h1>Issues</h1>
 
 @if (isLoading()) {
-  <p>Loading issues...</p>
+<p>Loading issues...</p>
 } @else if (errorMessage()) {
-  <p>{{ errorMessage() }}</p>
+<p>{{ errorMessage() }}</p>
 } @else if (issues().length === 0) {
-  <p>No issues found.</p>
+<p>No issues found.</p>
 } @else {
-  @for (issue of issues(); track issue.id) {
-    <app-issue-card [issue]="issue" />
-  }
+@for (issue of issues(); track issue.id) {
+<app-issue-card [issue]="issue" />
+}
 }

@@ -11,4 +11,8 @@ export class IssueService {
     getIssues() {
         return this.http.get<Issue[]>('/api/issues');
     }
+
+    createIssue(issue: Omit<Issue, 'id'>) {
+        return this.http.post<Issue>('/api/issues', issue);
+    }
 }

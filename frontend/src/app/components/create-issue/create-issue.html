@@ -1,0 +1,53 @@
+<h2>Create Issue</h2>
+
+@if (errorMessage()) {
+<p class="error">{{ errorMessage() }}</p>
+}
+<form [formGroup]="issueForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="title">Title</label>
+        <input id="title" type="text" formControlName="title" />
+        @if (issueForm.controls.title.touched && issueForm.controls.title.invalid) {
+        <p class="error">Title is required.</p>
+        }
+    </div>
+
+    <div>
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description"></textarea>
+        @if (
+        issueForm.controls.description.touched &&
+        issueForm.controls.description.invalid
+        ) {
+        <p class="error">Description is required.</p>
+        }
+    </div>
+
+    <div>
+        <label for="status">Status</label>
+
+        <select id="status" formControlName="status">
+            <option value="TODO">To Do</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="DONE">Done</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="priority">Priority</label>
+
+        <select id="priority" formControlName="priority">
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+        </select>
+    </div>
+
+    <button type="submit" [disabled]="isSubmitting()">
+        @if (isSubmitting()) {
+        Creating...
+        } @else {
+        Create Issue
+        }
+    </button>
+</form>
