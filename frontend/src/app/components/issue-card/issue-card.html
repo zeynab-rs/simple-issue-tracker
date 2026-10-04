@@ -1,0 +1,21 @@
+<article class="issue-card">
+  <div class="issue-card__header">
+    <h2>{{ issue().title }}</h2>
+
+    @if (issue().priority === 'HIGH') {
+      <span class="priority priority--high">High</span>
+    } @else if (issue().priority === 'MEDIUM') {
+      <span class="priority priority--medium">Medium</span>
+    } @else {
+      <span class="priority priority--low">Low</span>
+    }
+  </div>
+
+  <p class="issue-card__description">
+    {{ issue().description }}
+  </p>
+
+  <span class="status">
+    {{ statusLabel() }}
+  </span>
+</article>

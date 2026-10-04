@@ -1,0 +1,49 @@
+.issue-card {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.issue-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.issue-card__header h2 {
+  margin: 0;
+}
+
+.issue-card__description {
+  color: #666;
+  margin: 12px 0;
+}
+
+.priority,
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.priority--high {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.priority--medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.priority--low {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status {
+  background: #eee;
+}
