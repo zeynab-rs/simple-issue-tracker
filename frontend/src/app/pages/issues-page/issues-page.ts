@@ -46,4 +46,19 @@ export class IssuesPage {
     );
     this.editingIssue.set(null);
   }
+
+  onDeleteIssue(id: number) {
+    this.issueService.deleteIssue(id).subscribe({
+      next: () => {
+        this.issues.update((issues) =>
+          issues.filter((currentIssue) => currentIssue.id !== id)
+        );
+      },
+
+      error: (error) => {
+        console.error('Failed to delete issue:', error);
+        this.errorMessage.set('Failed to delete issue.');
+      },
+    });
+  }
 }

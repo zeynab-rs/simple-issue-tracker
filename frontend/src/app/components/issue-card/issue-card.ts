@@ -9,6 +9,7 @@ import { Issue } from '../../models/issue';
 export class IssueCard {
   issue = input.required<Issue>();
   editClicked = output<Issue>();
+  deleteClicked = output<number>();
 
   statusLabel = computed(() => {
     switch (this.issue().status) {
@@ -25,5 +26,9 @@ export class IssueCard {
 
   onEdit() {
     this.editClicked.emit(this.issue());
+  }
+
+  onDelete() {
+    this.deleteClicked.emit(this.issue().id);
   }
 }

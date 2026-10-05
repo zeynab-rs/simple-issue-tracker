@@ -19,4 +19,8 @@ export class IssueService {
     updateIssue(issue: Issue) {
         return this.http.put<Issue>(`/api/issues/${issue.id}`, issue);
     }
+
+    deleteIssue(id: number) {
+        return this.http.delete<void>(`/api/issues/${id}`);
+    }
 }
