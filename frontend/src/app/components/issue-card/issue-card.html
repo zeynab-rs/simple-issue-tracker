@@ -3,11 +3,11 @@
     <h2>{{ issue().title }}</h2>
 
     @if (issue().priority === 'HIGH') {
-      <span class="priority priority--high">High</span>
+    <span class="priority priority--high">High</span>
     } @else if (issue().priority === 'MEDIUM') {
-      <span class="priority priority--medium">Medium</span>
+    <span class="priority priority--medium">Medium</span>
     } @else {
-      <span class="priority priority--low">Low</span>
+    <span class="priority priority--low">Low</span>
     }
   </div>
 
@@ -18,4 +18,8 @@
   <span class="status">
     {{ statusLabel() }}
   </span>
+
+  <button type="button" (click)="onEdit()">
+    Edit
+  </button>
 </article>

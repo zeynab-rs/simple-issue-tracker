@@ -15,4 +15,8 @@ export class IssueService {
     createIssue(issue: Omit<Issue, 'id'>) {
         return this.http.post<Issue>('/api/issues', issue);
     }
+
+    updateIssue(issue: Issue) {
+        return this.http.put<Issue>(`/api/issues/${issue.id}`, issue);
+    }
 }

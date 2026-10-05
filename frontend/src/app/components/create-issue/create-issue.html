@@ -1,4 +1,10 @@
-<h2>Create Issue</h2>
+<h2>
+    @if (editingIssue()) {
+    Edit Issue
+    } @else {
+    Create Issue
+    }
+</h2>
 
 @if (errorMessage()) {
 <p class="error">{{ errorMessage() }}</p>
@@ -45,9 +51,17 @@
 
     <button type="submit" [disabled]="isSubmitting()">
         @if (isSubmitting()) {
+        @if (editingIssue()) {
+        Updating...
+        } @else {
         Creating...
+        }
+        } @else {
+        @if (editingIssue()) {
+        Update Issue
         } @else {
         Create Issue
+        }
         }
     </button>
 </form>

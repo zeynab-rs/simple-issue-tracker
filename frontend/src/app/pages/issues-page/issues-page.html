@@ -1,4 +1,5 @@
-<app-create-issue (issueCreated)="onIssueCreated($event)" />
+<app-create-issue (issueCreated)="onIssueCreated($event)" [editingIssue]="editingIssue()"
+    (issueUpdated)="onIssueUpdated($event)" />
 
 <h1>Issues</h1>
 
@@ -10,6 +11,6 @@
 <p>No issues found.</p>
 } @else {
 @for (issue of issues(); track issue.id) {
-<app-issue-card [issue]="issue" />
+<app-issue-card [issue]="issue" (editClicked)="onEditIssue($event)" />
 }
 }

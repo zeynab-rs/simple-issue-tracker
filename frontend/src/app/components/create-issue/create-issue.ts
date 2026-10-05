@@ -1,4 +1,4 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, input, output, signal, effect } from '@angular/core';
 import {
     FormControl,
     FormGroup,
@@ -15,7 +15,9 @@ import { Issue, IssuePriority, IssueStatus } from '../../models/issue';
     styleUrl: './create-issue.css',
 })
 export class CreateIssue {
+    editingIssue = input<Issue | null>(null);
     issueCreated = output<Issue>();
+    issueUpdated = output<Issue>();
     isSubmitting = signal(false);
     errorMessage = signal('');
     issueForm = new FormGroup({
@@ -37,7 +39,18 @@ export class CreateIssue {
     });
 
     constructor(private issueService: IssueService) {
+        effect(() => {
+            const issue = this.editingIssue();
 
+            if (issue) {
+                this.issueForm.reset({
+                    title: issue.title,
+                    description: issue.description,
+                    status: issue.status,
+                    priority: issue.priority,
+                });
+            }
+        });
     }
 
     onSubmit() {
@@ -51,25 +64,53 @@ export class CreateIssue {
 
         const issue = this.issueForm.getRawValue();
 
-        this.issueService.createIssue(issue).subscribe({
-            next: (createdIssue) => {
-                this.issueCreated.emit(createdIssue);
+        if (this.editingIssue()) {
+            const updatedIssue: Issue = {
+                id: this.editingIssue()!.id,
+                ...issue,
+            };
 
-                this.issueForm.reset({
-                    title: '',
-                    description: '',
-                    status: 'TODO',
-                    priority: 'MEDIUM',
-                });
+            this.issueService.updateIssue(updatedIssue).subscribe({
+                next: (updatedIssue) => {
+                    this.issueUpdated.emit(updatedIssue);
 
-                this.isSubmitting.set(false);
-            },
+                    this.issueForm.reset({
+                        title: '',
+                        description: '',
+                        status: 'TODO',
+                        priority: 'MEDIUM',
+                    });
 
-            error: (error) => {
-                console.error('Failed to create issue:', error);
-                this.errorMessage.set('Failed to create issue.');
-                this.isSubmitting.set(false);
-            },
-        });
+                    this.isSubmitting.set(false);
+                },
+
+                error: (error) => {
+                    console.error('Failed to update issue:', error);
+                    this.errorMessage.set('Failed to update issue.');
+                    this.isSubmitting.set(false);
+                },
+            });
+        } else {
+            this.issueService.createIssue(issue).subscribe({
+                next: (createdIssue) => {
+                    this.issueCreated.emit(createdIssue);
+
+                    this.issueForm.reset({
+                        title: '',
+                        description: '',
+                        status: 'TODO',
+                        priority: 'MEDIUM',
+                    });
+
+                    this.isSubmitting.set(false);
+                },
+
+                error: (error) => {
+                    console.error('Failed to create issue:', error);
+                    this.errorMessage.set('Failed to create issue.');
+                    this.isSubmitting.set(false);
+                },
+            });
+        }
     }
 }

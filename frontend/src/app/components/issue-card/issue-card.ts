@@ -1,4 +1,4 @@
-import { Component, input, computed } from '@angular/core';
+import { Component, input, computed, output } from '@angular/core';
 import { Issue } from '../../models/issue';
 
 @Component({
@@ -8,6 +8,7 @@ import { Issue } from '../../models/issue';
 })
 export class IssueCard {
   issue = input.required<Issue>();
+  editClicked = output<Issue>();
 
   statusLabel = computed(() => {
     switch (this.issue().status) {
@@ -21,4 +22,8 @@ export class IssueCard {
         return 'Done';
     }
   });
+
+  onEdit() {
+    this.editClicked.emit(this.issue());
+  }
 }

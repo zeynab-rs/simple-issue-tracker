@@ -14,6 +14,7 @@ export class IssuesPage {
   issues = signal<Issue[]>([]);
   isLoading = signal(true);
   errorMessage = signal('');
+  editingIssue = signal<Issue | null>(null);
 
   constructor(private issueService: IssueService) {
     this.issueService.getIssues().subscribe({
@@ -31,5 +32,18 @@ export class IssuesPage {
 
   onIssueCreated(issue: Issue) {
     this.issues.update((issues) => [...issues, issue]);
+  }
+
+  onEditIssue(issue: Issue) {
+    this.editingIssue.set(issue);
+  }
+
+  onIssueUpdated(updatedIssue: Issue) {
+    this.issues.update((issues) =>
+      issues.map((issue) =>
+        issue.id === updatedIssue.id ? updatedIssue : issue
+      )
+    );
+    this.editingIssue.set(null);
   }
 }
