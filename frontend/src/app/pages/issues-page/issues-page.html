@@ -2,22 +2,40 @@
 
 <h1>Issues</h1>
 
+<div>
+  <label for="status-filter">Status</label>
+
+  <select id="status-filter" [value]="statusFilter()" (change)="onStatusFilterChange($event)">
+    <option value="ALL">All</option>
+    <option value="TODO">To Do</option>
+    <option value="IN_PROGRESS">In Progress</option>
+    <option value="DONE">Done</option>
+  </select>
+</div>
+<div>
+  <label for="priority-filter">Priority</label>
+
+  <select id="priority-filter" [value]="priorityFilter()" (change)="onPriorityFilterChange($event)">
+    <option value="ALL">All</option>
+    <option value="LOW">Low</option>
+    <option value="MEDIUM">Medium</option>
+    <option value="HIGH">High</option>
+  </select>
+</div>
+
 @if (isLoading()) {
-  <p>Loading issues...</p>
+<p>Loading issues...</p>
 } @else {
 
-  @if (errorMessage()) {
-    <p>{{ errorMessage() }}</p>
-  }
+@if (errorMessage()) {
+<p>{{ errorMessage() }}</p>
+}
 
-  @if (issues().length === 0) {
-    <p>No issues found.</p>
-  } @else {
-    @for (issue of issues(); track issue.id) {
-      <app-issue-card
-        [issue]="issue"
-        (deleteClicked)="onDeleteIssue($event)"
-      />
-    }
-  }
+@if (filteredIssues().length === 0) {
+<p>No issues found.</p>
+} @else {
+@for (issue of filteredIssues(); track issue.id) {
+<app-issue-card [issue]="issue" (deleteClicked)="onDeleteIssue($event)" />
+}
+}
 }

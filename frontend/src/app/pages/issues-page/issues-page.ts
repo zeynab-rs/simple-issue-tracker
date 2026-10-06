@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Issue } from '../../models/issue';
+import { Issue, IssuePriority, IssueStatus } from '../../models/issue';
 import { IssueCard } from '../../components/issue-card/issue-card';
 import { IssueService } from '../../services/issue.service';
 
@@ -14,6 +14,22 @@ export class IssuesPage {
   issues = signal<Issue[]>([]);
   isLoading = signal(true);
   errorMessage = signal('');
+  statusFilter = signal<IssueStatus | 'ALL'>('ALL');
+  priorityFilter = signal<IssuePriority | 'ALL'>('ALL');
+  filteredIssues = computed(() => {
+    const status = this.statusFilter();
+    const priority = this.priorityFilter();
+
+    return this.issues().filter((issue) => {
+      const matchesStatus =
+        status === 'ALL' || issue.status === status;
+
+      const matchesPriority =
+        priority === 'ALL' || issue.priority === priority;
+
+      return matchesStatus && matchesPriority;
+    });
+  });
 
   constructor(private issueService: IssueService) {
     this.issueService.getIssues().subscribe({
@@ -42,5 +58,17 @@ export class IssuesPage {
         this.errorMessage.set('Failed to delete issue.');
       },
     });
+  }
+
+  onStatusFilterChange(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+
+    this.statusFilter.set(value as IssueStatus | 'ALL');
+  }
+
+  onPriorityFilterChange(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+
+    this.priorityFilter.set(value as IssuePriority | 'ALL');
   }
 }
