@@ -1,14 +1,15 @@
 import { Component, input, computed, output } from '@angular/core';
 import { Issue } from '../../models/issue';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-issue-card',
+  imports: [RouterLink],
   templateUrl: './issue-card.html',
   styleUrl: './issue-card.css',
 })
 export class IssueCard {
   issue = input.required<Issue>();
-  editClicked = output<Issue>();
   deleteClicked = output<number>();
 
   statusLabel = computed(() => {
@@ -23,10 +24,6 @@ export class IssueCard {
         return 'Done';
     }
   });
-
-  onEdit() {
-    this.editClicked.emit(this.issue());
-  }
 
   onDelete() {
     this.deleteClicked.emit(this.issue().id);

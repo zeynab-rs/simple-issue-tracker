@@ -19,9 +19,9 @@
     {{ statusLabel() }}
   </span>
 
-  <button type="button" (click)="onEdit()">
+  <a [routerLink]="['/issues', issue().id]">
     Edit
-  </button>
+  </a>
   <button type="button" (click)="onDelete()">
     Delete
   </button>

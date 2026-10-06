@@ -1,7 +1,4 @@
-<app-create-issue (issueCreated)="onIssueCreated($event)" [editingIssue]="editingIssue()"
-    (issueUpdated)="onIssueUpdated($event)" />
-
-<h1>Issues</h1>
+<a routerLink="/issues/new">New Issue</a>
 
 <h1>Issues</h1>
 
@@ -19,7 +16,6 @@
     @for (issue of issues(); track issue.id) {
       <app-issue-card
         [issue]="issue"
-        (editClicked)="onEditIssue($event)"
         (deleteClicked)="onDeleteIssue($event)"
       />
     }

@@ -23,4 +23,8 @@ export class IssueService {
     deleteIssue(id: number) {
         return this.http.delete<void>(`/api/issues/${id}`);
     }
+
+    getIssue(id: number) {
+        return this.http.get<Issue>(`/api/issues/${id}`);
+    }
 }
