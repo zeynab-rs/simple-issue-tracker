@@ -14,7 +14,12 @@
         <label for="title">Title</label>
         <input id="title" type="text" formControlName="title" />
         @if (issueForm.controls.title.touched && issueForm.controls.title.invalid) {
+        @if (issueForm.controls.title.hasError('required')) {
         <p class="error">Title is required.</p>
+        }
+        @if (issueForm.controls.title.hasError('minlength')) {
+        <p class="error">Title must be at least 3 characters.</p>
+        }
         }
     </div>
 

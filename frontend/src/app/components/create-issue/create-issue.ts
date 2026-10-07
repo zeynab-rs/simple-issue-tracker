@@ -23,7 +23,10 @@ export class CreateIssue {
     issueForm = new FormGroup({
         title: new FormControl('', {
             nonNullable: true,
-            validators: Validators.required
+            validators: [
+                Validators.required,
+                Validators.minLength(3)
+            ]
         }
         ),
         description: new FormControl('', {
