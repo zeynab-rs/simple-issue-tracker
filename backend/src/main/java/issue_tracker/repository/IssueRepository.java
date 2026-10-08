@@ -1,8 +1,7 @@
 package issue_tracker.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import issue_tracker.model.Issue;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IssueRepository extends JpaRepository<Issue, Integer> {
 

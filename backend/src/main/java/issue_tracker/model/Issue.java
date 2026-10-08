@@ -17,7 +17,7 @@ public class Issue {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @NotBlank(message = "Title must not be blank")
-    @Size(min=3, message = "Title must be at least 3 characters")
+    @Size(min = 3, message = "Title must be at least 3 characters")
     private String title;
     @NotBlank(message = "Description must not be blank")
     private String description;
@@ -26,7 +26,7 @@ public class Issue {
     private IssueStatus status = IssueStatus.TODO;
     @Enumerated(EnumType.STRING)
     @NotNull
-    private IssuePriority priority = IssuePriority.LOW;
+    private IssuePriority priority = IssuePriority.MEDIUM;
 
     public Issue() {
 

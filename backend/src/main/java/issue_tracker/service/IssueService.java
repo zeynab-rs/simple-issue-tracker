@@ -33,16 +33,17 @@ public class IssueService {
     @Transactional
     public Issue editIssue(Issue newIssue, Integer id) {
         Issue issue = this.findById(id);
-        
+
         if (issue != null) {
             issue.setTitle(newIssue.getTitle());
             issue.setDescription(newIssue.getDescription());
             issue.setStatus(newIssue.getStatus());
             issue.setPriority(newIssue.getPriority());
             return issue;
-        } else {
-            return null;
         }
+
+        return null;
+
     }
 
     @Transactional
@@ -52,8 +53,9 @@ public class IssueService {
         if (issue != null) {
             issueRepository.delete(issue);
             return issue;
-        } else {
-            return null;
         }
+
+        return null;
+
     }
 }
