@@ -36,6 +36,10 @@
 } @else {
 @for (issue of filteredIssues(); track issue.id) {
 <app-issue-card [issue]="issue" (deleteClicked)="onDeleteIssue($event)" />
+@if (issueToDelete()?.id === issue.id) {
+<app-delete-confirmation [issue]="issue" (confirmedClicked)="onConfirmedDelete()"
+  (cancelledClicked)="onCancelledDelete()" />
+}
 }
 }
 }
