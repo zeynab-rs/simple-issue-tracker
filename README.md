@@ -145,7 +145,7 @@ Example:
 
 Make sure the following are installed:
 
-* Java 21 or later
+* Java 21
 * Maven
 * Node.js
 * Angular CLI
