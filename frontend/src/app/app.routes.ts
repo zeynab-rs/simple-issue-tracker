@@ -19,5 +19,5 @@ export const routes: Routes = [
   {
     path: 'issues/:id',
     component: IssueFormPage,
-  }
+  },
 ];

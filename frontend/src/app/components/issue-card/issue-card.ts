@@ -1,6 +1,6 @@
-import { Component, input, computed, output } from '@angular/core';
-import { Issue } from '../../models/issue';
+import { Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Issue } from '../../models/issue';
 
 @Component({
   selector: 'app-issue-card',
@@ -10,19 +10,6 @@ import { RouterLink } from '@angular/router';
 export class IssueCard {
   issue = input.required<Issue>();
   deleteClicked = output<number>();
-
-  statusLabel = computed(() => {
-    switch (this.issue().status) {
-      case 'TODO':
-        return 'To Do';
-
-      case 'IN_PROGRESS':
-        return 'In Progress';
-
-      case 'DONE':
-        return 'Done';
-    }
-  });
 
   onDelete() {
     this.deleteClicked.emit(this.issue().id);

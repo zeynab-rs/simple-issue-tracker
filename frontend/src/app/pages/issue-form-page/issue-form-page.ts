@@ -22,6 +22,10 @@ export class IssueFormPage {
         if (id) {
             const issueId = Number(id);
 
+            if (Number.isNaN(issueId)) {
+                return;
+            }
+
             this.issueService.getIssue(issueId).subscribe({
                 next: (issue) => {
                     this.issue.set(issue);

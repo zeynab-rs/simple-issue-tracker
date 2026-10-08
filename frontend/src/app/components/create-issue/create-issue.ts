@@ -65,24 +65,18 @@ export class CreateIssue {
         this.isSubmitting.set(true);
 
         const issue = this.issueForm.getRawValue();
+        const editingIssue = this.editingIssue();
 
-        if (this.editingIssue()) {
+        if (editingIssue) {
             const updatedIssue: Issue = {
-                id: this.editingIssue()!.id,
+                id: editingIssue.id,
                 ...issue,
             };
 
             this.issueService.updateIssue(updatedIssue).subscribe({
                 next: (updatedIssue) => {
                     this.issueUpdated.emit(updatedIssue);
-
-                    this.issueForm.reset({
-                        title: '',
-                        description: '',
-                        status: 'TODO',
-                        priority: 'MEDIUM',
-                    });
-
+                    this.resetForm();
                     this.isSubmitting.set(false);
                 },
 
@@ -96,14 +90,7 @@ export class CreateIssue {
             this.issueService.createIssue(issue).subscribe({
                 next: (createdIssue) => {
                     this.issueCreated.emit(createdIssue);
-
-                    this.issueForm.reset({
-                        title: '',
-                        description: '',
-                        status: 'TODO',
-                        priority: 'MEDIUM',
-                    });
-
+                    this.resetForm();
                     this.isSubmitting.set(false);
                 },
 
@@ -114,5 +101,14 @@ export class CreateIssue {
                 },
             });
         }
+    }
+
+    private resetForm() {
+        this.issueForm.reset({
+            title: '',
+            description: '',
+            status: 'TODO',
+            priority: 'MEDIUM',
+        });
     }
 }

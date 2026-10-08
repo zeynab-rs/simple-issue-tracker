@@ -52,17 +52,17 @@ export class IssuesPage {
   }
 
   onConfirmedDelete() {
-    if (!this.issueToDelete()) {
+    const issueToDelete = this.issueToDelete();
+
+    if (!issueToDelete) {
       return;
     }
 
-    const issueToDeleteId = this.issueToDelete()!.id;
-
-    this.issueService.deleteIssue(issueToDeleteId).subscribe({
+    this.issueService.deleteIssue(issueToDelete.id).subscribe({
       next: () => {
         this.issueToDelete.set(null);
         this.issues.update((issues) =>
-          issues.filter((currentIssue) => currentIssue.id !== issueToDeleteId)
+          issues.filter((currentIssue) => currentIssue.id !== issueToDelete.id)
         );
       },
 
