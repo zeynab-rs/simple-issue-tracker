@@ -12,7 +12,6 @@ import { Issue, IssuePriority, IssueStatus } from '../../models/issue';
     selector: 'app-create-issue',
     imports: [ReactiveFormsModule],
     templateUrl: './create-issue.html',
-    styleUrl: './create-issue.css',
 })
 export class CreateIssue {
     editingIssue = input<Issue | null>(null);

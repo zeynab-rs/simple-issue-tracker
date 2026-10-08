@@ -9,7 +9,6 @@ import { IssueService } from '../../services/issue.service';
   imports: [IssueCard, DeleteConfirmation, RouterLink],
   selector: 'app-issues-page',
   templateUrl: './issues-page.html',
-  styleUrl: './issues-page.css',
 })
 export class IssuesPage {
   issues = signal<Issue[]>([]);

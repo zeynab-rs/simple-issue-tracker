@@ -6,7 +6,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-issue-card',
   imports: [RouterLink],
   templateUrl: './issue-card.html',
-  styleUrl: './issue-card.css',
 })
 export class IssueCard {
   issue = input.required<Issue>();

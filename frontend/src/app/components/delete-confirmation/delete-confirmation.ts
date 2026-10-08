@@ -4,7 +4,6 @@ import { Issue } from '../../models/issue';
 @Component({
   imports: [],
   selector: 'app-delete-confirmation',
-  styleUrl: './delete-confirmation.css',
   templateUrl: './delete-confirmation.html',
 })
 export class DeleteConfirmation {

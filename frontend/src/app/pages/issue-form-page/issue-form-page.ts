@@ -8,7 +8,6 @@ import { Issue } from '../../models/issue';
     selector: 'app-issue-form-page',
     imports: [CreateIssue],
     templateUrl: './issue-form-page.html',
-    styleUrl: './issue-form-page.css',
 })
 export class IssueFormPage {
     issue = signal<Issue | null>(null);
